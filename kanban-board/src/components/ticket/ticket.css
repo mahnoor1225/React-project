@@ -1,0 +1,20 @@
+.ticket{
+  background-color: white;
+  padding: 2px;
+  padding-left: 5px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ticket_top{
+    display: flex;
+    gap: 10px;
+}
+
+.ticketLabel{
+    flex:1;
+    display: flex;
+    gap : 10px;
+}

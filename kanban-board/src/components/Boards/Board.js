@@ -1,17 +1,24 @@
 import React from "react";
 import {MoreHorizontal} from "react-feather"
 import './Board.css'
+import Ticket from "../ticket/ticket";
 
 function Board() {
     return(
         <div className='board'>
-            <div className='board_title'>
-                <p className='title'>To do<span>2</span></p>
-                <MoreHorizontal />
+            <div className="board_title">
+            <div className='board_title Left'>
+                <div className='title'>To do 
+                    <span>2</span>
+                </div>
             </div>
-            <div className="boardTickets">
-                <h3>card 1</h3>
-                <h3>card 2</h3>
+            <MoreHorizontal className='moreIcon'/> 
+                {/* react feather library for icons */}
+            </div>
+            <div className="ticketContainer">
+                <div className="ticket">
+                    <Ticket />
+                </div>
             </div>
         </div>
     );

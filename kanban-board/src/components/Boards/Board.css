@@ -1,3 +1,58 @@
-.board{
-  min-width: 290px;
+.board {
+  min-width: 250px;
+  background-color: #cfcfcf;
+  padding: 10px;
+  max-height: 100%;
+}
+
+.board_title {
+  display: flex;
+  justify-content: space-between; /* pushes left & right apart */
+  align-items: center;
+}
+
+.board_title_left {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* gap between "To do" and 2 */
+}
+
+.title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.title span{
+  color:gray;
+  margin-left:6px;
+  border-radius: 50%;
+  background-color: white;
+  padding-left:5px;
+  padding-right: 5px;
+  font-size: 15px;
+}
+
+.count {
+  background-color: #e0e0e0;
+  padding: 3px 8px;
+  border-radius: 50%;
+  font-size: 14px;
+}
+
+.more_icon {
+  cursor: pointer;
+}
+
+.ticketContainer{
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticket{
+  background-color: white;
+  padding: 2px;
+  padding-left: 5px;
+  border-radius: 10px;
 }

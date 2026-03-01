@@ -26,6 +26,7 @@
 }
 .outerBoard {
   height: 100vh;
+  overflow-x: auto;
 }
 
 .innerBoard {
@@ -34,7 +35,7 @@
   gap: 15px;
   padding: 10px;
   min-width: max-content;
-  overflow-x: auto;
+  
 }
 
 .app_navbar{
