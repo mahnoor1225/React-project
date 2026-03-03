@@ -1,20 +1,25 @@
 .board {
-  min-width: 250px;
   background-color: #cfcfcf;
   padding: 10px;
-  max-height: 100%;
+  border-radius: 8px;
+
+  flex: 1;
+  min-width: 250px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .board_title {
   display: flex;
-  justify-content: space-between; /* pushes left & right apart */
+  justify-content: space-between;
   align-items: center;
 }
 
 .board_title_left {
   display: flex;
   align-items: center;
-  gap: 10px; /* gap between "To do" and 2 */
+  gap: 10px;
 }
 
 .title {
@@ -22,37 +27,35 @@
   font-size: 20px;
 }
 
-.title span{
-  color:gray;
-  margin-left:6px;
+.title span {
+  color: gray;
+  margin-left: 6px;
   border-radius: 50%;
   background-color: white;
-  padding-left:5px;
-  padding-right: 5px;
+  padding: 2px 8px;
   font-size: 15px;
 }
 
-.count {
-  background-color: #e0e0e0;
-  padding: 3px 8px;
-  border-radius: 50%;
-  font-size: 14px;
-}
-
-.more_icon {
-  cursor: pointer;
-}
-
-.ticketContainer{
-  padding-top: 20px;
+.ticketContainer {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding-right: 10px;
+
+  flex: 1;
+  overflow-y: auto;   /* THIS enables board scroll */
+}
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
 }
 
-.ticket{
-  background-color: white;
-  padding: 2px;
-  padding-left: 5px;
-  border-radius: 10px;
+.custom-scroll::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  border: 1px solid gray;
 }
