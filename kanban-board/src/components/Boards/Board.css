@@ -1,61 +1,67 @@
 .board {
-  background-color: #cfcfcf;
-  padding: 10px;
-  border-radius: 8px;
-
-  flex: 1;
-  min-width: 250px;
-
+  min-width: 290px;
+  width: 290px;
+  max-height: 100%;
+  flex-basis: 290px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
-.board_title {
+.board_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.board_title_left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.title {
+.board_header_title {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1rem;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
-.title span {
-  color: gray;
-  margin-left: 6px;
-  border-radius: 50%;
-  background-color: white;
-  padding: 2px 8px;
-  font-size: 15px;
+.board_header_title span {
+  color: rgb(145, 145, 145);
 }
 
-.ticketContainer {
-  margin-top: 20px;
+.board_header_title_more {
+  cursor: pointer;
+  position: relative;
+}
+
+.board_dropdown {
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  width: 150px !important;
+  cursor: default;
+}
+.board_dropdown p {
+  border-bottom: 1px solid #f8f8f8;
+  cursor: pointer;
+}
+
+.board_cards {
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-right: 10px;
-
-  flex: 1;
-  overflow-y: auto;   /* THIS enables board scroll */
-}
-.custom-scroll::-webkit-scrollbar {
-  width: 8px;
+  gap: 10px;
+  overflow-y: auto;
 }
 
-.custom-scroll::-webkit-scrollbar-thumb {
-  border-radius: 50px;
-  border: 1px solid #ccc;
+.board_add-card {
   background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 1px 1px 0 1px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  text-align: center;
 }
-
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-  border: 1px solid gray;
+.board_add-card_edit {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
 }
