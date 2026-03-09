@@ -1,105 +1,37 @@
-import React, { useState } from "react";
-import { CheckSquare, Clock, MoreHorizontal } from "react-feather";
+import React from "react";
+import './Ticket.css';
 
-import Dropdown from "../Dropdown/dropdown";
+function Ticket({ id, title, description, priority }) {
 
-import "./ticket.css";
-import Ticketinfo from "./ticketinfo/ticketinfo";
+    const handleDragStart = (e) => {
+        e.dataTransfer.setData('ticketId', id);
+        e.currentTarget.classList.add('dragging');
+    };
 
-function Ticket(props) {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+    const handleDragEnd = (e) => {
+        e.currentTarget.classList.remove('dragging');
+    };
 
-  const { id, title, date, tasks, labels } = props.card;
-
-  const formatDate = (value) => {
-    if (!value) return "";
-    const date = new Date(value);
-    if (!date) return "";
-
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Aprl",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    return day + " " + month;
-  };
-
-  return (
-    <>
-      {showModal && (
-        <ticketinfo
-          onClose={() => setShowModal(false)}
-          card={props.card}
-          boardId={props.boardId}
-          updateCard={props.updateCard}
-        />
-      )}
-      <div
-        className="card"
-        draggable
-        onDragEnd={() => props.dragEnded(props.boardId, id)}
-        onDragEnter={() => props.dragEntered(props.boardId, id)}
-        onClick={() => setShowModal(true)}
-      >
-        <div className="card_top">
-          <div className="card_top_labels">
-            {labels?.map((item, index) => (
-              <label key={index} style={{ backgroundColor: item.color }}>
-                {item.text}
-              </label>
-            ))}
-          </div>
-          <div
-            className="card_top_more"
-            onClick={(event) => {
-              event.stopPropagation();
-              setShowDropdown(true);
-            }}
-          >
-            <MoreHorizontal />
-            {showDropdown && (
-              <Dropdown
-                class="board_dropdown"
-                onClose={() => setShowDropdown(false)}
-              >
-                <p onClick={() => props.removeCard(props.boardId, id)}>
-                  Delete Card
-                </p>
-              </Dropdown>
-            )}
-          </div>
+    return (
+        <div
+            className={`ticket_layout priority_${priority}`}
+            draggable
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+        >
+            <div className="ticket_priority_bar" />
+            <div className="ticket_body">
+                <div className="ticket_top">{title}</div>
+                {description && (
+                    <div className="ticket_description">{description}</div>
+                )}
+                <div className="ticket_footer">
+                    <span className={`priority_badge ${priority}`}>{priority}</span>
+                    <span className="ticket_id">#{id}</span>
+                </div>
+            </div>
         </div>
-        <div className="card_title">{title}</div>
-        <div className="card_footer">
-          {date && (
-            <p className="card_footer_item">
-              <Clock className="card_footer_icon" />
-              {formatDate(date)}
-            </p>
-          )}
-          {tasks && tasks?.length > 0 && (
-            <p className="card_footer_item">
-              <CheckSquare className="card_footer_icon" />
-              {tasks?.filter((item) => item.completed)?.length}/{tasks?.length}
-            </p>
-          )}
-        </div>
-      </div>
-    </>
-  );
+    );
 }
 
 export default Ticket;
