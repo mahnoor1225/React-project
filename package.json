@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "react-feather": "^2.0.10"
+    "formik": "^2.4.9",
+    "react-feather": "^2.0.10",
+    "yup": "^1.7.1"
   }
 }

@@ -20,23 +20,24 @@ const boardSlice = createSlice({
     },
 
     reducers: {
-        addBoard: (state, action) => {
-            // payload: { title, status }
-            state.boards.push(action.payload);
-        },
-
-        removeBoard: (state, action) => {
-            // payload: status string
-            state.boards = state.boards.filter(b => b.status !== action.payload);
-            state.tickets = state.tickets.filter(t => t.status !== action.payload);
-        },
-
         addTicket: (state, action) => {
             // payload: { id, title, description, priority, status }
             state.tickets.push(action.payload);
         },
 
-        removeTicket: (state, action) => {
+        editTicket: (state, action) => {
+            // payload: { id, title, description, priority, status }
+            const { id, title, description, priority, status } = action.payload;
+            const ticket = state.tickets.find(t => t.id === id);
+            if (ticket) {
+                ticket.title = title;
+                ticket.description = description;
+                ticket.priority = priority;
+                ticket.status = status;
+            }
+        },
+
+        deleteTicket: (state, action) => {
             // payload: ticket id string
             state.tickets = state.tickets.filter(t => t.id !== action.payload);
         },
@@ -50,5 +51,5 @@ const boardSlice = createSlice({
     }
 });
 
-export const { addBoard, removeBoard, addTicket, removeTicket, moveTicket } = boardSlice.actions;
+export const { addTicket, editTicket, deleteTicket, moveTicket } = boardSlice.actions;
 export default boardSlice.reducer;

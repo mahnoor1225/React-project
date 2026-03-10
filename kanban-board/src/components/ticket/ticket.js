@@ -1,7 +1,7 @@
 import React from "react";
 import './Ticket.css';
 
-function Ticket({ id, title, description, priority }) {
+function Ticket({ id, title, description, priority, onClick }) {
 
     const handleDragStart = (e) => {
         e.dataTransfer.setData('ticketId', id);
@@ -18,6 +18,8 @@ function Ticket({ id, title, description, priority }) {
             draggable
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
+            onClick={onClick}
+            title="Click to view details"
         >
             <div className="ticket_priority_bar" />
             <div className="ticket_body">
