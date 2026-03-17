@@ -1,80 +1,112 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteTicket } from "../../Store/BoardSlice";
-import './TicketDetail.css';
 
-const PRIORITY_COLORS = {
-    high:   { badge: '#fee2e2', text: '#dc2626', bar: '#ef4444' },
-    medium: { badge: '#fef3c7', text: '#d97706', bar: '#f59e0b' },
-    low:    { badge: '#dcfce7', text: '#16a34a', bar: '#22c55e' },
+const PRIORITY_STYLE = {
+    high:   { bar: 'bg-red-500',   badge: 'bg-red-100 text-red-600'   },
+    medium: { bar: 'bg-amber-400', badge: 'bg-amber-100 text-amber-600' },
+    low:    { bar: 'bg-green-500', badge: 'bg-green-100 text-green-600' },
 };
 
 function TicketDetailPanel({ ticket, onClose, onEdit }) {
     const dispatch = useDispatch();
-    const colors   = PRIORITY_COLORS[ticket.priority] || PRIORITY_COLORS.medium;
+    const style = PRIORITY_STYLE[ticket.priority] ?? PRIORITY_STYLE.medium;
 
     const handleDelete = () => {
         dispatch(deleteTicket(ticket.id));
-        onClose(); // close panel after delete
+        onClose();
     };
 
     return (
         <>
             {/* Backdrop */}
-            <div className="panel_backdrop" onClick={onClose} />
+            <div
+                className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[200]"
+                onClick={onClose}
+            />
 
-            {/* Sliding panel */}
-            <div className="ticket_detail_panel">
-                {/* Coloured top bar */}
-                <div className="panel_color_bar" style={{ background: colors.bar }} />
+            {/* Panel */}
+            <div className="fixed top-0 right-0 w-80 h-full bg-white z-[201]
+                            shadow-2xl flex flex-col overflow-hidden
+                            animate-[slideInPanel_0.22s_cubic-bezier(0.22,1,0.36,1)]">
 
-                <div className="panel_inner">
-                    {/* Header row */}
-                    <div className="panel_header">
-                        <span className="panel_ticket_id">#{ticket.id}</span>
-                        <button className="panel_close_btn" onClick={onClose}>✕</button>
+                {/* Top colour bar */}
+                <div className={`h-1.5 w-full shrink-0 ${style.bar}`} />
+
+                <div className="flex flex-col flex-1 px-6 py-5 overflow-y-auto">
+
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-4">
+                        <span className="text-xs text-slate-400 font-mono">#{ticket.id}</span>
+                        <button
+                            onClick={onClose}
+                            className="w-8 h-8 flex items-center justify-center rounded-lg
+                                       bg-slate-100 text-slate-400 text-sm
+                                       hover:bg-red-100 hover:text-red-500 transition-colors"
+                        >✕</button>
                     </div>
 
                     {/* Title */}
-                    <h2 className="panel_title">{ticket.title}</h2>
+                    <h2 className="text-lg font-bold text-slate-800 leading-snug mb-4">
+                        {ticket.title}
+                    </h2>
 
-                    {/* Meta row */}
-                    <div className="panel_meta">
-                        <div className="panel_meta_item">
-                            <span className="panel_meta_label">Priority</span>
-                            <span
-                                className="panel_priority_badge"
-                                style={{ background: colors.badge, color: colors.text }}
-                            >
+                    {/* Badges */}
+                    <div className="flex gap-4 mb-5">
+                        <div className="flex flex-col gap-1">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                                Priority
+                            </span>
+                            <span className={`text-xs font-bold px-3 py-0.5 rounded-full
+                                             ${style.badge}`}>
                                 {ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1)}
                             </span>
                         </div>
-                        <div className="panel_meta_item">
-                            <span className="panel_meta_label">Status</span>
-                            <span className="panel_status_badge">{ticket.status.replace('_', ' ')}</span>
+                        <div className="flex flex-col gap-1">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                                Status
+                            </span>
+                            <span className="text-xs font-bold px-3 py-0.5 rounded-full
+                                            bg-slate-100 text-slate-600 capitalize">
+                                {ticket.status.replace(/_/g, ' ')}
+                            </span>
                         </div>
                     </div>
 
-                    {/* Divider */}
-                    <div className="panel_divider" />
+                    <div className="h-px bg-slate-100 mb-5" />
 
                     {/* Description */}
-                    <div className="panel_section">
-                        <span className="panel_section_label">Description</span>
-                        <p className="panel_description">
-                            {ticket.description || <span className="panel_empty">No description provided.</span>}
+                    <div className="flex flex-col gap-2">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                            Description
+                        </span>
+                        <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap">
+                            {ticket.description
+                                ? ticket.description
+                                : <span className="italic text-slate-300">No description provided.</span>
+                            }
                         </p>
                     </div>
 
-                    {/* Spacer pushes actions to bottom */}
-                    <div className="panel_spacer" />
+                    {/* Spacer */}
+                    <div className="flex-1" />
 
                     {/* Actions */}
-                    <div className="panel_actions">
-                        <button className="panel_btn edit" onClick={onEdit}>
-                            ✏️ Edit Ticket
+                    <div className="flex gap-3 pt-5 border-t border-slate-100">
+                        <button
+                            onClick={onEdit}
+                            className="flex-1 py-2.5 text-sm font-semibold rounded-lg
+                                       bg-blue-50 text-blue-600
+                                       hover:bg-blue-100 active:scale-95 transition-all"
+                        >
+                            ✏️ Edit
                         </button>
-                        <button className="panel_btn delete" onClick={handleDelete}>
+                        <button
+                            onClick={handleDelete}
+                            className="flex-1 py-2.5 text-sm font-semibold rounded-lg
+                                       bg-red-50 text-red-500
+                                       hover:bg-red-100 active:scale-95 transition-all"
+                        >
                             🗑️ Delete
                         </button>
                     </div>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const boardSlice = createSlice({
-    name: 'kanban',
+const boardSlice = createSlice({// for state,reducers,andactions
+    name: 'kanban',// name of slice
 
     initialState: {
         boards: [
@@ -19,16 +19,16 @@ const boardSlice = createSlice({
         ]
     },
 
-    reducers: {
-        addTicket: (state, action) => {
-            // payload: { id, title, description, priority, status }
-            state.tickets.push(action.payload);
+    reducers: {// functions to change the state
+        addTicket: (state, action) => {// action mein payload mein jo hai wo sab aye ga
+            // payload: id,title,description,priority,status 
+            state.tickets.push(action.payload);// push the new ticket to the array
         },
 
         editTicket: (state, action) => {
-            // payload: { id, title, description, priority, status }
+            // payload: id,title,description,priority,status 
             const { id, title, description, priority, status } = action.payload;
-            const ticket = state.tickets.find(t => t.id === id);
+            const ticket = state.tickets.find(t => t.id === id);// find the ticket position and if it exists then edit it
             if (ticket) {
                 ticket.title = title;
                 ticket.description = description;
@@ -38,7 +38,7 @@ const boardSlice = createSlice({
         },
 
         deleteTicket: (state, action) => {
-            // payload: ticket id string
+            // payload:ticket id string
             state.tickets = state.tickets.filter(t => t.id !== action.payload);
         },
 
